@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html>
+<title>Hands On</title>
+<head>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.3.min.js"></script> 
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+<script>
+function setVisibility(){
+var shapeList = document.getElementById("Shape");
+var shape = document.getElementById("Shapes").value;
+for(var i=0; i <shapeList.options.length; i++)
+{
+  console.log("shapeList.options[i].value "+shapeList.options[i].value + "  "+ shape);
+  if(shapeList.options[i].value == shape){
+    document.getElementById(shape).style.display = 'block'
+  }
+  else{
+    var notVisible = shapeList.options[i].value;
+    console.log("hide "+notVisible);
+    document.getElementById(notVisible).style.display = 'none';
+  }
+  /* if(shapeList.options[i].value == shape){
+    document.getElementById(shape).style.display = 'block';    
+  }
+  else{
+    document.getElementById(shapeList.options[i].value).style.display = 'none';
+  } */
+}
+}
+function clickit(){
+var c = document.getElementById("myCanvas");
+var context = c.getContext("2d");
+context.clearRect(0, 0, 1200, 400);  
+var shape = document.getElementById("Shapes").value;
+console.log("Han han :"+shape);
+if(shape == "Circle"){
+  //circle logic here
+  var centerX = document.getElementById("circle_center").value;
+  var centerY = document.getElementById("circle_center").value;
+  var radius = document.getElementById("circle_radius").value;
+  var lineWidth = document.getElementById("circle_thickness").value;
+  
+  //ctx.fillStyle = "#3cfc43";
+  //ctx.fillRect(0,0,150,75);
+  context.beginPath();
+  context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+  //context.fillStyle = 'green';
+  //context.fill();
+  context.lineWidth = lineWidth;
+  context.strokeStyle = '#003300';
+  context.stroke();
+}
+if(shape == "Square"){
+   context.fillStyle = "#fff123";
+   var ax = document.getElementById("ax").value;
+   var ay = document.getElementById("ay").value;;
+   var bx = document.getElementById("bx").value;;
+   var by = document.getElementById("by").value;;
+   context.beginPath();
+   context.rect(ax,ay,bx,bx);
+   context.lineWidth = by;
+  context.strokeStyle = '#003300';
+  context.stroke();
+   context.fillRect(ax,ay,bx,bx);
+}
+if(shape == "Rectangle"){
+   context.fillStyle = "#fff123";
+   var ax = document.getElementById("ax_rec").value;
+   var ay = document.getElementById("ay_rec").value;
+   var bx = document.getElementById("bx_rec").value;
+   var by = document.getElementById("by_rec").value;
+   context.beginPath();
+   context.rect(ax,ay,bx,by);
+   context.lineWidth = document.getElementById("rect_thickness").value;
+   context.strokeStyle = '#003300';
+   context.stroke();
+   context.fillRect(ax,ay,bx,by);
+}
+if(shape == "Triangle"){
+   var ax;
+   var ay;
+   var bx;
+   var by;
+   var cx;
+   var cy;
+   var lineWidth = document.getElementById("tri_thickness").value;
+   context.lineWidth = 10;
+   context.moveTo(75,50);
+   context.lineTo(100,175);
+   context.lineTo(100,25);
+   context.fill();
+}
+if(shape == "Polygon"){
+  var lineWidth = document.getElementById("poly_thickness").value;
+   context.fillStyle = "#fff123";
+   var numberOfSides = 6,
+    size = 200,
+    Xcenter = 250,
+    Ycenter = 250;
+    context.beginPath();
+    context.moveTo (Xcenter +  size * Math.cos(0), Ycenter +  size *  Math.sin(0));          
+    for (var i = 1; i <= numberOfSides;i += 1) {
+    context.lineTo (Xcenter + size * Math.cos(i * 2 * Math.PI / numberOfSides), Ycenter + size * Math.sin(i * 2 * Math.PI / numberOfSides));
+}
+
+context.strokeStyle = "#000000";
+context.lineWidth = 1;
+context.stroke();
+}
+}
+</script>
+</head>
+<body>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">
+        <span class="glyphicon glyphicon-music"> Universal Studio</span>
+      </a>
+    </div>
+  </div>
+</nav>
+<div class="jumbotron">
+  <form role="form">
+  <div class="form-group">
+<table style="width:50%;table-layout: fixed;">  
+  <tr>
+      <td style="text-align:right">
+        <label class="form-control-label has-success">Select Shape :</label>  
+      </td>
+      <td>
+        <input type=text id="Shapes" list=Shape class="form-control form-control-lg c-select" onChange="setVisibility()">
+        <datalist id="Shape">
+        <option value="Circle">Circle</option>
+        <option value="Triangle">Triangle</option>
+        <option value="Square">Square</option>
+        <option value="Rectangle">Rectangle</option>
+        <option value="Polygon">Polygon</option>   
+        </datalist>
+      </input> 
+        <!-- <select id="Shape" class="form-control form-control-lg c-select">
+        <option selected disabled>Select a Shape</option>
+        <option value="Circle">Circle</option>
+        <option value="Triangle">Triangle</option>
+        <option value="Square">Square</option>
+        <option value="Rectangle">Rectangle</option>
+        <option value="Polygon">Polygon</option>
+        </select> -->
+      </td>
+  </tr>
+</table>
+  </div>
+<div id = "Circle" class="container" style="display:none;">
+<table style="width:80%;table-layout: fixed;">
+  <tr>
+      <td colspan="4" style= "text-align:center;">
+        <label class="form-control-label">Draw a Circle</label>
+      </td>
+  </tr>
+  <tr>
+    <td style="text-align:right;padding-top:5px;">
+      <label class="form-control-label has-success">Center :</label>
+    </td>
+    <td style="text-align:left;padding-top:5px;">
+      <input class="form-control form-control-lg  has-success" type = "number" id="circle_center" label="Center"/>
+    </td>
+    <td style="text-align:right;padding-top:5px;">
+      <label class="form-control-label  has-success" >Radius :</label>
+    </td>
+    <td style="text-align:left;padding-top:5px;">
+      <input class="form-control form-control-lg" type = "number" id="circle_radius" label="Radius"/>       
+    </td>
+  </tr>
+  <tr>
+    <td style="text-align:right;padding-top:5px;">
+      <label class="form-control-label" for="inputWarning1">Color :</label>
+    </td>
+    <td style="text-align:left;padding-top:5px;">
+      <input class="form-control form-control-lg" type = "number" id="circle_center" label="Center"/>
+    </td>
+    <td style="text-align:right;padding-top:5px;">
+      <label class="form-control-label" for="inputWarning1">Thickness :</label>
+    </td>
+    <td style="text-align:left;padding-top:5px;">
+      <input class="form-control form-control-lg" type = "number" id="circle_thickness"label="Radius"/>       
+    </td>
+  </tr>
+</table>  
+</div>
+<br />
+<!-- Square Starts from here -->
+
+<div id = "Square" class="container" style="display:none;">
+<table style="width:80%;table-layout: fixed;">
+  <tr>
+      <td colspan="4" style= "text-align:center;">
+        <label class="form-control-label">Draw a Square</label>
+      </td>
+  </tr>
+  <tr>
+      <td colspan="4" style= "text-align:center;">
+        <label class="form-control-label">Enter the Co-ordinates of a Side (A(x,y) & B (x,y))</label>
+      </td>
+  </tr>
+  <tr>
+    <td style="text-align:right;padding-top:5px;">
+      <label class="form-control-label">A-x :</label>
+    </td>
+    <td style="text-align:left;padding-top:5px;">
+      <input class="form-control form-control-lg" type = "number" id="ax" label="Center"/>
+    </td>
+    <td style="text-align:right;padding-top:5px;">
+      <label class="form-control-label" for="inputWarning1">A-y :</label>
+    </td>
+    <td style="text-align:left;padding-top:5px;">
+      <input class="form-control form-control-lg" type = "number" id="ay" label="Radius"/>       
+    </td>
+  </tr>
+  <tr>
+    <td style="text-align:right;padding-top:5px;">
+      <label class="form-control-label" for="inputWarning1">B-x :</label>
+    </td>
+    <td style="text-align:left;padding-top:5px;">
+      <input class="form-control form-control-lg" type = "number" id="bx" label="Center"/>
+    </td>
+    <td style="text-align:right;padding-top:5px;">
+      <label class="form-control-label" for="inputWarning1">B-y :</label>
+    </td>
+    <td style="text-align:left;padding-top:5px;">
+      <input class="form-control form-control-lg" type = "number" id="by"label="Radius"/>       
+    </td>
+  </tr>
+  <tr>
+    <td style="text-align:right;padding-top:5px;">
+      <label class="form-control-label" for="inputWarning1">Color :</label>
+    </td>
+    <td style="text-align:left;padding-top:5px;">
+      <input class="form-control form-control-lg" type = "number" id="circle_center" label="Center"/>
+    </td>
+    <td style="text-align:right;padding-top:5px;">
+      <label class="form-control-label" for="inputWarning1">Thickness :</label>
+    </td>
+    <td style="text-align:left;padding-top:5px;">
+      <input class="form-control form-control-lg" type = "number" id="tri_thickness"label="Radius"/>       
+    </td>
+  </tr>
+</table>  
+</div>
+<div id = "Triangle" class="container" style="display:none;">
+<table style="width:80%;table-layout: fixed;">
+  <tr>
+      <td colspan="4" style= "text-align:center;">
+        <label class="form-control-label">Draw a Triangle</label>
+      </td>
+  </tr>
+  <tr>
+    <td style="text-align:right;padding-top:5px;">
+      <label class="form-control-label has-success">Center :</label>
+    </td>
+    <td style="text-align:left;padding-top:5px;">
+      <input class="form-control form-control-lg  has-success" type = "number" id="circle_center" label="Center"/>
+    </td>
+    <td style="text-align:right;padding-top:5px;">
+      <label class="form-control-label  has-success" >Radius :</label>
+    </td>
+    <td style="text-align:left;padding-top:5px;">
+      <input class="form-control form-control-lg" type = "number" id="circle_radius" label="Radius"/>       
+    </td>
+  </tr>
+  <tr>
+    <td style="text-align:right;padding-top:5px;">
+      <label class="form-control-label" for="inputWarning1">Color :</label>
+    </td>
+    <td style="text-align:left;padding-top:5px;">
+      <input class="form-control form-control-lg" type = "number" id="circle_center" label="Center"/>
+    </td>
+    <td style="text-align:right;padding-top:5px;">
+      <label class="form-control-label" for="inputWarning1">Thickness :</label>
+    </td>
+    <td style="text-align:left;padding-top:5px;">
+      <input class="form-control form-control-lg" type = "number" id="squ_thickness"label="Radius"/>       
+    </td>
+  </tr>
+</table>  
+</div>
+<!-- Rectangle -->
+<div id = "Rectangle" class="container" style="display:none;">
+<table style="width:80%;table-layout: fixed;">
+  <tr>
+      <td colspan="4" style= "text-align:center;">
+        <label class="form-control-label">Draw a Rectangle</label>
+      </td>
+  </tr>
+  <tr>
+      <td colspan="4" style= "text-align:center;">
+        <label class="form-control-label">Enter the Co-ordinates of a Diagonal (A(x,y) & B (x,y))</label>
+      </td>
+  </tr>
+  <tr>
+    <td style="text-align:right;padding-top:5px;">
+      <label class="form-control-label">A-x :</label>
+    </td>
+    <td style="text-align:left;padding-top:5px;">
+      <input class="form-control form-control-lg" type = "number" id="ax_rec" label="Center"/>
+    </td>
+    <td style="text-align:right;padding-top:5px;">
+      <label class="form-control-label" for="inputWarning1">A-y :</label>
+    </td>
+    <td style="text-align:left;padding-top:5px;">
+      <input class="form-control form-control-lg" type = "number" id="ay_rec" label="Radius"/>       
+    </td>
+  </tr>
+  <tr>
+    <td style="text-align:right;padding-top:5px;">
+      <label class="form-control-label" for="inputWarning1">B-x :</label>
+    </td>
+    <td style="text-align:left;padding-top:5px;">
+      <input class="form-control form-control-lg" type = "number" id="bx_rec" label="Center"/>
+    </td>
+    <td style="text-align:right;padding-top:5px;">
+      <label class="form-control-label" for="inputWarning1">B-y :</label>
+    </td>
+    <td style="text-align:left;padding-top:5px;">
+      <input class="form-control form-control-lg" type = "number" id="by_rec"label="Radius"/>       
+    </td>
+  </tr>
+  <tr>
+    <td style="text-align:right;padding-top:5px;">
+      <label class="form-control-label" for="inputWarning1">Color :</label>
+    </td>
+    <td style="text-align:left;padding-top:5px;">
+      <input class="form-control form-control-lg" type = "number" id="circle_center" label="Center"/>
+    </td>
+    <td style="text-align:right;padding-top:5px;">
+      <label class="form-control-label" for="inputWarning1">Thickness :</label>
+    </td>
+    <td style="text-align:left;padding-top:5px;">
+      <input class="form-control form-control-lg" type = "number" id="rect_thickness"label="Radius"/>       
+    </td>
+  </tr>
+</table>  
+</div>
+<div id = "Polygon" class="container" style="display:none;">
+<table style="width:80%;table-layout: fixed;">
+  <tr>
+      <td colspan="4" style= "text-align:center;">
+        <label class="form-control-label">Draw a Polygon</label>
+      </td>
+  </tr>
+  <tr>
+    <td style="text-align:right;padding-top:5px;">
+      <label class="form-control-label has-success">Center :</label>
+    </td>
+    <td style="text-align:left;padding-top:5px;">
+      <input class="form-control form-control-lg  has-success" type = "number" id="circle_center" label="Center"/>
+    </td>
+    <td style="text-align:right;padding-top:5px;">
+      <label class="form-control-label  has-success" >Radius :</label>
+    </td>
+    <td style="text-align:left;padding-top:5px;">
+      <input class="form-control form-control-lg" type = "number" id="circle_radius" label="Radius"/>       
+    </td>
+  </tr>
+  <tr>
+    <td style="text-align:right;padding-top:5px;">
+      <label class="form-control-label" for="inputWarning1">Color :</label>
+    </td>
+    <td style="text-align:left;padding-top:5px;">
+      <input class="form-control form-control-lg" type = "number" id="circle_center" label="Center"/>
+    </td>
+    <td style="text-align:right;padding-top:5px;">
+      <label class="form-control-label" for="inputWarning1">Thickness :</label>
+    </td>
+    <td style="text-align:left;padding-top:5px;">
+      <input class="form-control form-control-lg" type = "number" id="poly_thickness"label="Radius"/>       
+    </td>
+  </tr>
+</table>  
+</div>
+
+<div style="width:100%; text-align:center;">
+<input type="button" value="Generate" onclick="clickit()"/>
+<input type="button" value="Clear Canvas" onclick="clickit()"/>
+</div>
+</div>
+</form>
+<canvas id="myCanvas" width="1200" height="600" style="border:1px solid #000000; position:absolute; left:5%;"></canvas>
+</body>
+</html>

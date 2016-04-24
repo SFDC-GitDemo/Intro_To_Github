@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<title>Hands On</title>
+<head>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.3.min.js"></script> 
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+<script>
+	function calculateTotalSubscription(){
+		console.log("here I am");
+		var someDate = new Date();
+		console.log("This is me "+someDate);
+		var numberOfDaysToAdd = 90;
+		someDate.setDate(someDate.getDate() + numberOfDaysToAdd);
+		var s = document.getElementById("Subscription_Ends");
+		s.value = someDate;
+		calculateTotal();
+	}
+	function calculateTotal() {   
+    var checkedItems = 0; 
+    var cartValue = 0.00;
+    var itemValue = 12; 
+	var inputElements = document.getElementsByClassName('form-control');
+	for(var i=0; inputElements[i]; ++i){
+      if(inputElements[i].checked){
+           checkedItems++;
+      }
+
+}
+	if(checkedItems >0){
+	console.log("enough is enough "+checkedItems);
+	cartValue = checkedItems*itemValue;
+	cartValue = "$ "+cartValue;
+	var v = document.getElementById('Subscription_Price');
+	v.value = cartValue;
+	document.getElementById('makeitvisible').style.display = 'block';
+	}
+	else
+	{
+		alert("Please Select alteast 1 item from the list to subscribe.");
+	}
+	
+}  
+</script>
+</head>
+<body>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">
+        <span class="glyphicon glyphicon-music"> Universal Studio</span>
+      </a>
+    </div>
+  </div>
+</nav>
+<div class="jumbotron">
+ 	<table class="table table-striped" id="wcList">
+    <thead>
+      <tr>
+        <th>Select</th>
+        <th>Album Details</th>
+        <th>Price (USD $)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><input type="Checkbox" class="form-control"/></td>
+        <td>Album Name</td>
+        <td>$ 12.00</td>
+      </tr>
+      <tr>
+        <td><input type="Checkbox"  class="form-control"/></td>
+        <td>Album Name</td>
+        <td>$ 12.00</td>
+      </tr>
+    </tbody>
+  </table> 
+</div>
+<div class="container">
+	<button class="btn btn-primary" type="button" onClick="calculateTotalSubscription()">
+  Subscribe 
+</button>
+  <!--	<p id="Subscription_Ends"></p>
+  <input type='CartValue' id='Subscription_Price' readonly/>
+  <input type='DateTimes' id='Subscription_Date' readonly/> -->
+  <div id = "makeitvisible" style="display:none;" >
+  	<p> Total Subscription Amount : <input type="text" id ="Subscription_Price" class="form-control" readonly/>,<br />
+  		Your Subscription expires on <b><input type="text" id ="Subscription_Ends"  class="form-control"  readonly/></b>.</p>
+  </div>
+</div>
+</body>
+</html>
